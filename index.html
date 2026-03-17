@@ -12,13 +12,36 @@
     
     <meta name="author" content="Pedro Benitez">
 
-    <title>CSV to SQL Converter - Generate SQL Inserts Online</title>
+    <link rel="canonical" href="https://tudominio.com/">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="CSV to SQL Converter">
+    <meta property="og:description" content="Free CSV to SQL converter. Generate SQL INSERT statements instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tudominio.com/">
+
+    <title>CSV to SQL Converter Online – Generate SQL INSERT from CSV (Free)</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- CSV Parser -->
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <script type="application/ld+json">
+    {
+     "@context": "https://schema.org",
+     "@type": "SoftwareApplication",
+     "name": "CSV to SQL Converter",
+     "applicationCategory": "DeveloperTool",
+     "operatingSystem": "Web",
+     "author": {
+       "@type": "Person",
+       "name": "Pedro Benitez"
+     }
+    }
+
+</script>
 
 </head>
 
@@ -40,7 +63,7 @@
                 <p>Drag & Drop CSV here</p>
                 <p class="or">or</p>
 
-                <input type="file" id="csvFile">
+                <input type="file" id="csvFile" accept=".csv">
 
             </div>
 
@@ -111,36 +134,36 @@
             <section class="seo">
 
             <h2>Convert CSV to SQL Online</h2>
-                        
+
             <p>
             This free CSV to SQL converter helps developers quickly generate SQL INSERT statements from CSV files.
             Upload your CSV file and instantly convert it into SQL compatible with MySQL, PostgreSQL, SQLite or SQL Server.
             </p>
-            
+
             <h3>How it works</h3>
-            
+
             <ol>
             <li>Upload your CSV file</li>
             <li>Enter your table name</li>
             <li>Select your database type</li>
             <li>Generate SQL INSERT statements</li>
             </ol>
-            
+
             <h3>Example CSV</h3>
-            
+
             <pre>
             id,name,email
             1,John,john@mail.com
             2,Ana,ana@mail.com
             </pre>
-            
+
             <h3>Generated SQL</h3>
-            
+
             <pre>
             INSERT INTO users (id,name,email)
             VALUES ('1','John','john@mail.com');
             </pre>
-            
+
             </section>
 
         </div>
@@ -149,7 +172,7 @@
 
 
     <!-- SCRIPT -->
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
