@@ -1,11 +1,18 @@
+let csvData = [];
+
+
+
+/* =========================
+   GENERATE SQL
+========================= */
+
 function generateSQL(){
 
-    const file = document.getElementById("csvFile").files[0];
     const table = document.getElementById("tableName").value;
     const dbType = document.getElementById("dbType").value;
 
-    if(!file){
-        alert("Upload CSV file");
+    if(csvData.length === 0){
+        alert("Upload a CSV file first");
         return;
     }
 
@@ -14,52 +21,45 @@ function generateSQL(){
         return;
     }
 
-    Papa.parse(file,{
-        header:true,
-        skipEmptyLines:true,
+    let sql = "";
 
-        complete:function(results){
+    let quote = "`";
 
-            let sql = "";
+    if(dbType === "postgres") quote = '"';
+    if(dbType === "sqlite") quote = '"';
+    if(dbType === "sqlserver") quote = '"';
 
-            // definir tipo de comillas según DB
-            let quote = "`";
+    csvData.forEach(row => {
 
-            if(dbType === "postgres") quote = '"';
-            if(dbType === "sqlite") quote = '"';
-            if(dbType === "sqlserver") quote = '"';
+        const columns = Object.keys(row)
+            .map(col => `${quote}${col}${quote}`)
+            .join(",");
 
-            results.data.forEach(row => {
+        const values = Object.values(row)
+            .map(v => {
 
-                const columns = Object.keys(row)
-                    .map(col => `${quote}${col}${quote}`)
-                    .join(",");
+                if(v === null || v === "") return "NULL";
 
-                const values = Object.values(row)
-                    .map(v => {
+                const safe = String(v).replace(/'/g,"''");
 
-                        if(v === null || v === "") return "NULL";
+                return `'${safe}'`;
 
-                        // escapar comillas
-                        const safe = String(v).replace(/'/g,"''");
+            })
+            .join(",");
 
-                        return `'${safe}'`;
+        sql += `INSERT INTO ${quote}${table}${quote} (${columns}) VALUES (${values});\n`;
 
-                    })
-                    .join(",");
-
-                sql += `INSERT INTO ${quote}${table}${quote} (${columns}) VALUES (${values});\n`;
-
-            });
-
-            document.getElementById("output").value = sql;
-
-        }
     });
+
+    document.getElementById("output").value = sql;
 
 }
 
 
+
+/* =========================
+   COPY SQL
+========================= */
 
 function copySQL(){
 
@@ -75,6 +75,10 @@ function copySQL(){
 }
 
 
+
+/* =========================
+   DOWNLOAD SQL
+========================= */
 
 function downloadSQL(){
 
@@ -98,6 +102,29 @@ function downloadSQL(){
 
 
 
+/* =========================
+   CLEAR TOOL
+========================= */
+
+function clearAll(){
+
+    csvData = [];
+
+    document.getElementById("output").value = "";
+    document.getElementById("previewTable").innerHTML = "";
+    document.getElementById("columns").innerText = "";
+    document.getElementById("fileName").innerText = "";
+
+    document.getElementById("csvFile").value = "";
+
+}
+
+
+
+/* =========================
+   DRAG AND DROP
+========================= */
+
 const dropZone = document.getElementById("dropZone");
 const fileInput = document.getElementById("csvFile");
 
@@ -118,25 +145,42 @@ dropZone.addEventListener("drop",(e)=>{
     const files = e.dataTransfer.files;
 
     if(files.length > 0){
+
+        const file = files[0];
+
         fileInput.files = files;
 
-        // mostrar preview automáticamente
-        previewFile(files[0]);
+        document.getElementById("fileName").innerText = file.name;
+
+        previewFile(file);
+
     }
 
 });
 
 
 
+/* =========================
+   FILE INPUT
+========================= */
+
 document.getElementById("csvFile").addEventListener("change",(e)=>{
 
     const file = e.target.files[0];
+
+    if(!file) return;
+
+    document.getElementById("fileName").innerText = file.name;
 
     previewFile(file);
 
 });
 
 
+
+/* =========================
+   PARSE CSV
+========================= */
 
 function previewFile(file){
 
@@ -147,7 +191,15 @@ function previewFile(file){
 
         complete:function(results){
 
-            showPreview(results.data);
+            csvData = results.data;
+
+            showPreview(csvData);
+
+        },
+
+        error:function(){
+
+            alert("Error reading CSV file");
 
         }
 
@@ -156,6 +208,10 @@ function previewFile(file){
 }
 
 
+
+/* =========================
+   SHOW PREVIEW
+========================= */
 
 function showPreview(data){
 

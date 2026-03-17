@@ -1,138 +1,208 @@
-*{
-    box-sizing:border-box;
+/* RESET */
+
+* {
+    box-sizing: border-box;
 }
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#0d0d0d;
-    color:white;
-    margin:0;
-    padding:0;
+
+/* BODY */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0d0d0d;
+    color: white;
+    margin: 0;
 }
 
-.container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+
+/* MAIN LAYOUT */
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-.card{
-    background:#151515;
-    padding:40px;
-    border-radius:12px;
-    width:700px;
-    margin:auto;
-    box-shadow:0px 10px 30px rgba(0,0,0,0.6);
+
+/* CARD */
+
+.card {
+    background: #151515;
+    padding: 40px;
+    border-radius: 12px;
+    width: 700px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.6);
 }
 
-h1{
-    text-align:center;
-    margin-bottom:30px;
+
+/* TITLE */
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-input[type="file"]{
-    margin-bottom:15px;
+
+/* INPUTS */
+
+input[type="file"] {
+    margin-top: 10px;
 }
 
-input[type="text"]{
-    width:100%;
-    padding:12px;
-    border-radius:6px;
-    border:none;
-    margin-bottom:15px;
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 15px;
+    background: #1f1f1f;
+    color: white;
 }
 
-button{
-    padding:12px 18px;
-    border:none;
-    border-radius:6px;
-    margin-right:10px;
-    cursor:pointer;
-    font-weight:bold;
+
+/* SELECT */
+
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 15px;
+    background: #1f1f1f;
+    color: white;
 }
 
-.generate{
-    background:#4CAF50;
-    color:white;
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
-.copy{
-    background:#2196F3;
-    color:white;
+button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
-.download{
-    background:#ff9800;
-    color:white;
+button:hover {
+    transform: scale(1.03);
 }
 
-button:hover{
-    opacity:0.9;
+
+/* BUTTON COLORS */
+
+.generate {
+    background: #4CAF50;
+    color: white;
 }
 
-.buttons{
-    margin-top:10px;
-    margin-bottom:20px;
+.copy {
+    background: #2196F3;
+    color: white;
 }
 
-textarea{
-    width:100%;
-    height:250px;
-    padding:12px;
-    background:#1f1f1f;
-    color:white;
-    border:none;
-    border-radius:6px;
-    resize:none;
+.download {
+    background: #ff9800;
+    color: white;
 }
 
-.dropzone{
-    border:2px dashed #555;
-    padding:30px;
-    text-align:center;
-    margin-bottom:20px;
-    border-radius:10px;
-    transition:0.2s;
+.clear {
+    background: #444;
+    color: white;
 }
 
-.dropzone.dragover{
-    border-color:#4CAF50;
-    background:#1a1a1a;
+
+/* DROPZONE */
+
+.dropzone {
+    border: 2px dashed #555;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    transition: 0.2s ease;
 }
 
-#previewSection{
-margin-bottom:20px;
+.dropzone.dragover {
+    border-color: #4CAF50;
+    background: #1c1c1c;
+    transform: scale(1.02);
 }
 
-#columns{
-margin-bottom:10px;
-font-weight:bold;
-color:#4CAF50;
+
+/* FILE NAME */
+
+#fileName {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #aaa;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-background:#1f1f1f;
+
+/* PREVIEW */
+
+#previewSection {
+    margin-bottom: 20px;
 }
 
-td, th{
-border:1px solid #333;
-padding:6px;
-font-size:14px;
+#columns {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #4CAF50;
 }
 
-th{
-background:#222;
+
+/* TABLE */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1f1f1f;
 }
 
-select{
-width:100%;
-padding:12px;
-border-radius:6px;
-border:none;
-margin-bottom:15px;
-background:#1f1f1f;
-color:white;
+td, th {
+    border: 1px solid #333;
+    padding: 6px;
+    font-size: 14px;
+}
+
+th {
+    background: #222;
+}
+
+
+/* SQL OUTPUT */
+
+textarea {
+    width: 100%;
+    height: 250px;
+    padding: 12px;
+    background: #0f0f0f;
+    color: #00ff9c;
+    border: none;
+    border-radius: 6px;
+    resize: none;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+
+    .card {
+        width: 90%;
+        padding: 25px;
+    }
+
 }

@@ -2,55 +2,109 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<title>CSVtoSQL Generator</title>
 
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <title>CSV → SQL Generator</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- CSV Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 </head>
 
-<div class="card">
+<body>
 
-<h1>CSV → SQL Generator</h1>
+    <div class="container">
 
-<div id="dropZone" class="dropzone">
-<p>Drag & Drop CSV here</p>
-<p>or</p>
-<input type="file" id="csvFile">
-</div>
+        <div class="card">
 
-<div id="previewSection">
+            <!-- TITLE -->
+            <h1>CSV → SQL Generator</h1>
 
-<h3>Detected Columns</h3>
-<div id="columns"></div>
 
-<h3>Preview</h3>
-<div id="previewTable"></div>
+            <!-- DROPZONE -->
+            <div id="dropZone" class="dropzone">
 
-</div>
+                <div id="fileName"></div>
 
-<input type="text" id="tableName" placeholder="Table name">
+                <p>Drag & Drop CSV here</p>
+                <p class="or">or</p>
 
-<select id="dbType">
+                <input type="file" id="csvFile">
 
-<option value="mysql">MySQL</option>
-<option value="postgres">PostgreSQL</option>
-<option value="sqlite">SQLite</option>
-<option value="sqlserver">SQL Server</option>
+            </div>
 
-</select>
 
-<div class="buttons">
-<button class="generate" onclick="generateSQL()">Generate SQL</button>
-<button class="copy" onclick="copySQL()">Copy SQL</button>
-<button class="download" onclick="downloadSQL()">Download SQL</button>
-</div>
+            <!-- PREVIEW SECTION -->
+            <div id="previewSection">
 
-<textarea id="output"></textarea>
+                <h3>Detected Columns</h3>
+                <div id="columns"></div>
 
-</div>
+                <h3>Preview</h3>
+                <div id="previewTable"></div>
 
-</div>
+            </div>
+
+
+            <!-- TABLE NAME INPUT -->
+            <input
+                type="text"
+                id="tableName"
+                placeholder="Table name (example: users)"
+            >
+
+
+            <!-- DATABASE SELECT -->
+            <select id="dbType">
+
+                <option value="mysql">MySQL</option>
+                <option value="postgres">PostgreSQL</option>
+                <option value="sqlite">SQLite</option>
+                <option value="sqlserver">SQL Server</option>
+
+            </select>
+
+
+            <!-- ACTION BUTTONS -->
+            <div class="buttons">
+
+                <button class="generate" onclick="generateSQL()">
+                    Generate SQL
+                </button>
+
+                <button class="copy" onclick="copySQL()">
+                    Copy SQL
+                </button>
+
+                <button class="download" onclick="downloadSQL()">
+                    Download SQL
+                </button>
+
+                <button class="clear" onclick="clearAll()">
+                    Clear
+                </button>
+
+            </div>
+
+
+            <!-- OUTPUT -->
+            <textarea
+                id="output"
+                placeholder="SQL output will appear here..."
+            ></textarea>
+
+        </div>
+
+    </div>
+
+
+    <!-- SCRIPT -->
+    <script src="script.js"></script>
+
+</body>
 </html>
