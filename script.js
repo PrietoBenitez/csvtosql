@@ -2,6 +2,7 @@ function generateSQL(){
 
     const file = document.getElementById("csvFile").files[0];
     const table = document.getElementById("tableName").value;
+    const dbType = document.getElementById("dbType").value;
 
     if(!file){
         alert("Upload CSV file");
@@ -21,14 +22,33 @@ function generateSQL(){
 
             let sql = "";
 
+            // definir tipo de comillas según DB
+            let quote = "`";
+
+            if(dbType === "postgres") quote = '"';
+            if(dbType === "sqlite") quote = '"';
+            if(dbType === "sqlserver") quote = '"';
+
             results.data.forEach(row => {
 
-                const columns = Object.keys(row).join(",");
-                const values = Object.values(row)
-                    .map(v => `'${v}'`)
+                const columns = Object.keys(row)
+                    .map(col => `${quote}${col}${quote}`)
                     .join(",");
 
-                sql += `INSERT INTO ${table} (${columns}) VALUES (${values});\n`;
+                const values = Object.values(row)
+                    .map(v => {
+
+                        if(v === null || v === "") return "NULL";
+
+                        // escapar comillas
+                        const safe = String(v).replace(/'/g,"''");
+
+                        return `'${safe}'`;
+
+                    })
+                    .join(",");
+
+                sql += `INSERT INTO ${quote}${table}${quote} (${columns}) VALUES (${values});\n`;
 
             });
 
@@ -38,6 +58,8 @@ function generateSQL(){
     });
 
 }
+
+
 
 function copySQL(){
 
@@ -51,6 +73,7 @@ function copySQL(){
     alert("SQL copied to clipboard");
 
 }
+
 
 
 function downloadSQL(){
@@ -73,19 +96,22 @@ function downloadSQL(){
 
 }
 
+
+
 const dropZone = document.getElementById("dropZone");
 const fileInput = document.getElementById("csvFile");
 
-dropZone.addEventListener("dragover", (e)=>{
+dropZone.addEventListener("dragover",(e)=>{
     e.preventDefault();
     dropZone.classList.add("dragover");
 });
 
-dropZone.addEventListener("dragleave", ()=>{
+dropZone.addEventListener("dragleave",()=>{
     dropZone.classList.remove("dragover");
 });
 
-dropZone.addEventListener("drop", (e)=>{
+dropZone.addEventListener("drop",(e)=>{
+
     e.preventDefault();
     dropZone.classList.remove("dragover");
 
@@ -93,58 +119,74 @@ dropZone.addEventListener("drop", (e)=>{
 
     if(files.length > 0){
         fileInput.files = files;
+
+        // mostrar preview automáticamente
+        previewFile(files[0]);
     }
+
 });
 
-document.getElementById("csvFile").addEventListener("change", function(e){
 
-const file = e.target.files[0];
 
-Papa.parse(file, {
+document.getElementById("csvFile").addEventListener("change",(e)=>{
 
-header:true,
-skipEmptyLines:true,
+    const file = e.target.files[0];
 
-complete:function(results){
+    previewFile(file);
 
-showPreview(results.data);
+});
+
+
+
+function previewFile(file){
+
+    Papa.parse(file,{
+
+        header:true,
+        skipEmptyLines:true,
+
+        complete:function(results){
+
+            showPreview(results.data);
+
+        }
+
+    });
 
 }
 
-});
 
-});
 
 function showPreview(data){
 
-if(data.length === 0) return;
+    if(data.length === 0) return;
 
-const columns = Object.keys(data[0]);
+    const columns = Object.keys(data[0]);
 
-document.getElementById("columns").innerText = columns.join(" | ");
+    document.getElementById("columns").innerText = columns.join(" | ");
 
-let html = "<table><tr>";
+    let html = "<table><tr>";
 
-columns.forEach(col=>{
-html += "<th>"+col+"</th>";
-});
+    columns.forEach(col=>{
+        html += `<th>${col}</th>`;
+    });
 
-html += "</tr>";
+    html += "</tr>";
 
-for(let i=0;i<Math.min(5,data.length);i++){
+    for(let i=0;i<Math.min(5,data.length);i++){
 
-html += "<tr>";
+        html += "<tr>";
 
-columns.forEach(col=>{
-html += "<td>"+data[i][col]+"</td>";
-});
+        columns.forEach(col=>{
+            html += `<td>${data[i][col] ?? ""}</td>`;
+        });
 
-html += "</tr>";
+        html += "</tr>";
 
-}
+    }
 
-html += "</table>";
+    html += "</table>";
 
-document.getElementById("previewTable").innerHTML = html;
+    document.getElementById("previewTable").innerHTML = html;
 
 }
