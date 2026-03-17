@@ -95,3 +95,56 @@ dropZone.addEventListener("drop", (e)=>{
         fileInput.files = files;
     }
 });
+
+document.getElementById("csvFile").addEventListener("change", function(e){
+
+const file = e.target.files[0];
+
+Papa.parse(file, {
+
+header:true,
+skipEmptyLines:true,
+
+complete:function(results){
+
+showPreview(results.data);
+
+}
+
+});
+
+});
+
+function showPreview(data){
+
+if(data.length === 0) return;
+
+const columns = Object.keys(data[0]);
+
+document.getElementById("columns").innerText = columns.join(" | ");
+
+let html = "<table><tr>";
+
+columns.forEach(col=>{
+html += "<th>"+col+"</th>";
+});
+
+html += "</tr>";
+
+for(let i=0;i<Math.min(5,data.length);i++){
+
+html += "<tr>";
+
+columns.forEach(col=>{
+html += "<td>"+data[i][col]+"</td>";
+});
+
+html += "</tr>";
+
+}
+
+html += "</table>";
+
+document.getElementById("previewTable").innerHTML = html;
+
+}

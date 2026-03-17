@@ -11,32 +11,35 @@
 
 </head>
 
-<div class="container">
-
 <div class="card">
 
 <h1>CSV → SQL Generator</h1>
 
 <div id="dropZone" class="dropzone">
-
 <p>Drag & Drop CSV here</p>
 <p>or</p>
-
 <input type="file" id="csvFile">
+</div>
+
+<div id="previewSection">
+
+<h3>Detected Columns</h3>
+<div id="columns"></div>
+
+<h3>Preview</h3>
+<div id="previewTable"></div>
 
 </div>
 
 <input type="text" id="tableName" placeholder="Table name">
 
 <div class="buttons">
-
 <button class="generate" onclick="generateSQL()">Generate SQL</button>
 <button class="copy" onclick="copySQL()">Copy SQL</button>
 <button class="download" onclick="downloadSQL()">Download SQL</button>
-
 </div>
 
-<textarea id="output" placeholder="SQL output will appear here"></textarea>
+<textarea id="output"></textarea>
 
 </div>
 

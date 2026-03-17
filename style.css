@@ -99,3 +99,29 @@ textarea{
     border-color:#4CAF50;
     background:#1a1a1a;
 }
+
+#previewSection{
+margin-bottom:20px;
+}
+
+#columns{
+margin-bottom:10px;
+font-weight:bold;
+color:#4CAF50;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:#1f1f1f;
+}
+
+td, th{
+border:1px solid #333;
+padding:6px;
+font-size:14px;
+}
+
+th{
+background:#222;
+}
