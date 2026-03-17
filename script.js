@@ -72,3 +72,26 @@ function downloadSQL(){
     link.click();
 
 }
+
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("csvFile");
+
+dropZone.addEventListener("dragover", (e)=>{
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+});
+
+dropZone.addEventListener("dragleave", ()=>{
+    dropZone.classList.remove("dragover");
+});
+
+dropZone.addEventListener("drop", (e)=>{
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+
+    const files = e.dataTransfer.files;
+
+    if(files.length > 0){
+        fileInput.files = files;
+    }
+});

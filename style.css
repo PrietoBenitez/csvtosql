@@ -85,3 +85,17 @@ textarea{
     border-radius:6px;
     resize:none;
 }
+
+.dropzone{
+    border:2px dashed #555;
+    padding:30px;
+    text-align:center;
+    margin-bottom:20px;
+    border-radius:10px;
+    transition:0.2s;
+}
+
+.dropzone.dragover{
+    border-color:#4CAF50;
+    background:#1a1a1a;
+}
