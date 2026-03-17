@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>CSVtoSQL Generator</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>CSV → SQL Generator</h1>
+
+<input type="file" id="csvFile">
+
+<br>
+
+<input type="text" id="tableName" placeholder="Table name">
+
+<br>
+
+<button onclick="generateSQL()">Generate SQL</button>
+
+<textarea id="output" placeholder="SQL output will appear here"></textarea>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
