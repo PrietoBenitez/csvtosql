@@ -100,6 +100,50 @@ function downloadSQL(){
 
 }
 
+/* =========================
+   GENERATE SQL
+========================= */
+
+function generateCreateTable(){
+
+    const table = document.getElementById("tableName").value;
+    const dbType = document.getElementById("dbType").value;
+
+    if(csvData.length === 0){
+        alert("Upload a CSV first");
+        return;
+    }
+
+    if(!table){
+        alert("Enter table name");
+        return;
+    }
+
+    const columns = Object.keys(csvData[0]);
+
+    let quote = "`";
+
+    if(dbType === "postgres") quote = '"';
+    if(dbType === "sqlite") quote = '"';
+    if(dbType === "sqlserver") quote = '"';
+
+    let sql = `CREATE TABLE ${quote}${table}${quote} (\n`;
+
+    columns.forEach((col,index)=>{
+
+        sql += `  ${quote}${col}${quote} VARCHAR(255)`;
+
+        if(index < columns.length - 1)
+            sql += ",\n";
+
+    });
+
+    sql += "\n);\n\n";
+
+    document.getElementById("output").value = sql;
+
+}
+
 
 
 /* =========================
