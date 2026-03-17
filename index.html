@@ -6,7 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CSV → SQL Generator</title>
+    <meta name="description" content="Free CSV to SQL converter. Generate SQL INSERT statements from CSV files instantly. Supports MySQL, PostgreSQL, SQLite and SQL Server.">
+
+    <meta name="keywords" content="csv to sql, csv to insert sql, csv to mysql, csv to postgres, csv converter">
+    
+    <meta name="author" content="Pedro Benitez">
+
+    <title>CSV to SQL Converter - Generate SQL Inserts Online</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
@@ -101,6 +107,41 @@
                 id="output"
                 placeholder="SQL output will appear here..."
             ></textarea>
+
+            <section class="seo">
+
+            <h2>Convert CSV to SQL Online</h2>
+                        
+            <p>
+            This free CSV to SQL converter helps developers quickly generate SQL INSERT statements from CSV files.
+            Upload your CSV file and instantly convert it into SQL compatible with MySQL, PostgreSQL, SQLite or SQL Server.
+            </p>
+            
+            <h3>How it works</h3>
+            
+            <ol>
+            <li>Upload your CSV file</li>
+            <li>Enter your table name</li>
+            <li>Select your database type</li>
+            <li>Generate SQL INSERT statements</li>
+            </ol>
+            
+            <h3>Example CSV</h3>
+            
+            <pre>
+            id,name,email
+            1,John,john@mail.com
+            2,Ana,ana@mail.com
+            </pre>
+            
+            <h3>Generated SQL</h3>
+            
+            <pre>
+            INSERT INTO users (id,name,email)
+            VALUES ('1','John','john@mail.com');
+            </pre>
+            
+            </section>
 
         </div>
 
