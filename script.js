@@ -38,3 +38,37 @@ function generateSQL(){
     });
 
 }
+
+function copySQL(){
+
+    const sql = document.getElementById("output");
+
+    sql.select();
+    sql.setSelectionRange(0,99999);
+
+    navigator.clipboard.writeText(sql.value);
+
+    alert("SQL copied to clipboard");
+
+}
+
+
+function downloadSQL(){
+
+    const sql = document.getElementById("output").value;
+
+    if(!sql){
+        alert("No SQL to download");
+        return;
+    }
+
+    const blob = new Blob([sql],{type:"text/sql"});
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+    link.download = "output.sql";
+
+    link.click();
+
+}
